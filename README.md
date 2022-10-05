@@ -5,6 +5,7 @@ The idea is creating wordcloud for YouTube videos, and then Medium articles as w
 ## To-Dos
 + [X] Main Objective: Creating Wordclouds (:
 + [ ] Flask App:
+    + [X] Route /yt for Optional Video
     + [ ] Optional Mask
     + [ ] STOPWORD Add
     + [ ] Delete Tmp Files
