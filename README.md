@@ -4,7 +4,10 @@ The idea is creating wordcloud for YouTube videos, and then Medium articles as w
 
 ## To-Dos
 + [X] Main Objective: Creating Wordclouds (:
-+ [ ] Flask App
++ [ ] Flask App:
+    + [ ] Optional Mask
+    + [ ] STOPWORD Add
+    + [ ] Delete Tmp Files
 + [ ] PyPi Repo
 + [ ] Medium Version
 + [ ] Premium Medium Version

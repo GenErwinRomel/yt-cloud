@@ -32,6 +32,5 @@ def free_this_article():
     return wanted_url
 
 if __name__ == '__main__':
-    import random, hashlib, validators, urllib.parse, requests
     # app.run(port=8000)
     app.run(port=5001, debug=True)
