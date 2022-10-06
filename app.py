@@ -20,12 +20,16 @@ def home_page():
 def free_this_article():
     try:
         vid = request.args.to_dict()['id']
+        res = get_sub(video_id=vid)
+        if (res['status']):
+            return send_file(gen_wc(video_id=vid), mimetype='image/png')
     except:
         return '/yt'
-    
-    res = get_sub(video_id=vid)
-    if (res['status']):
-        return send_file(gen_wc(video_id=vid), mimetype='image/png')
+        
+@app.route('/yt/mask')
+def yt_mask():
+    return render_template('mask.html')
+    return '/yt/mask'
 
 if __name__ == '__main__':
     # app.run(port=8000)

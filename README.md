@@ -1,6 +1,7 @@
 ## Manifesto
 
 The idea is creating wordcloud for YouTube videos, and then Medium articles as well. I copied the idea from [this guy](https://www.param.me/videocloud/) btw.
+I used word_cloud from PyPi, lots of thanks to [amueller](https://github.com/amueller/word_cloud) for his job on this project.
 
 ## To-Dos
 + [X] Main Objective: Creating Wordclouds (:

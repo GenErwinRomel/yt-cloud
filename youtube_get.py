@@ -6,7 +6,7 @@ video_id = '0YP4n9G0qtQ'
 
 def get_sub(video_id: str = '0YP4n9G0qtQ'):
     ydl_opts = {
-        'proxy': 'socks5://localhost:8585',
+        'proxy': 'socks5://localhost:5008',
         'writeautomaticsub': True,
         'writesubtitles': True,
         'skip_download': True,
