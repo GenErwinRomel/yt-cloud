@@ -5,7 +5,7 @@ I used word_cloud from PyPi, lots of thanks to [amueller](https://github.com/amu
 
 ## To-Dos
 + [X] Main Objective: Creating Wordclouds (:
-+ [ ] Flask App:
++ [X] Flask App:
     + [X] Route /yt for Optional Video
     + [ ] Optional Mask
     + [ ] STOPWORD Add

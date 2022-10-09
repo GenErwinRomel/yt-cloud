@@ -10,11 +10,7 @@ from youtube_get import get_sub
 
 @app.route('/', methods=['GET'])
 def home_page():
-    # Test Video: 'https://www.youtube.com/watch?v=ubV-8EYzTyc'
-    vid = 'ubV-8EYzTyc'
-    res = get_sub(video_id=vid)
-    if (res['status']):
-        return send_file(gen_wc(video_id=vid), mimetype='image/png')
+    return redirect('/yt/create')
 
 @app.route('/yt', methods=['GET'])
 def free_this_article():
@@ -24,13 +20,20 @@ def free_this_article():
         if (res['status']):
             return send_file(gen_wc(video_id=vid), mimetype='image/png')
     except:
-        return '/yt'
+        return redirect('/yt/create')
         
-@app.route('/yt/mask')
+@app.route('/yt/create')
 def yt_mask():
     return render_template('mask.html')
-    return '/yt/mask'
 
+@app.route('/yt/test', methods=['GET'])
+def home_page_test():
+    # Test Video: 'https://www.youtube.com/watch?v=ubV-8EYzTyc'
+    vid = 'ubV-8EYzTyc'
+    res = get_sub(video_id=vid)
+    if (res['status']):
+        return send_file(gen_wc(video_id=vid), mimetype='image/png')
+    
 if __name__ == '__main__':
     # app.run(port=8000)
     app.run(port=5001, debug=True)

@@ -12,13 +12,14 @@ def gen_wc(video_id: str):
     seed = "".join(lines).replace('\n', ' ')
     word_cloud =  WordCloud(
         # background_color='#C3352E', collocations=False, random_state=3,
-        # width=500, height=500, 
+        width=500, height=500, 
         # contour_color='steelblue',
         # contour_width=3, contour_color='steelblue',
         background_color='white',
         max_words=80,
         normalize_plurals=True,
-        stopwords=STOPWORDS , mask=np.array(Image.open('masks/ghalb.jpg'))
+        stopwords=STOPWORDS,
+        # mask=np.array(Image.open('masks/heart.jpg'))
     ).generate(seed)
     res = word_cloud.to_file(f'tmp/{video_id}/wc.png')
 

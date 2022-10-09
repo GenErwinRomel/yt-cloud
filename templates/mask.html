@@ -13,9 +13,31 @@
         margin-bottom: 25px;
     }
 
+	.res-img {
+		margin-top: 35px;
+		max-width: 409px;
+		padding: 1rem;
+		background: linear-gradient(to right, red, purple);
+		padding: 5px;
+	}
+
+	.res-div {
+		text-align: center;
+	}
+
+	.centered {
+		text-align: center;
+	}
+
+	.blacked {
+		/* color: black; */
+		text-decoration: underline;
+		color: white;
+	}
 
 </style>
 <!--<form action="/yt" method="get">-->
+	<script src="{{ url_for('static', filename='js/jquery-3.6.1.min.js') }}"></script>
 	<link href="{{ url_for('static', filename='css/forms.css') }}" rel="stylesheet" type="text/css" />   
 	<div class="login-wrap">
 		<div class="login-html">
@@ -28,32 +50,31 @@
 				<div class="sign-in-htm">
 					<div class="group">
 						<label for="user" class="label">URL of the Video *</label>
-						<input id="url_video" name="id" type="text" class="input" >
+						<input id="url_video" name="id" type="text" class="input" placeholder="https://www.youtube.com/watch?v=Rls8H6MktrA" >
 					</div>
-					<div class="group">
-						<label for="pass" class="label">link to the article</label>
-						<input id="wanted" name="wanted" type="text" class="input" data-type="" disabled>
+					<div hidden class="group">
+						<label for="pass" class="label">Mask (In Progress)</label>
+						<input id="mask" name="wanted" type="text" class="input" data-type="" disabled>
 					</div>
 					<div class="group">
 						<input id="clickme" type="submit" class="button" value="fetch the word cloud!">
+						<div class="res-div" style='display: none' id='resultdiv'>
+							<img class="res-img" src="{{ url_for('static', filename='img/loading.gif') }}" />
+						</div>
 						<script>
+							//const axios = require('axios').default;
 							function fetch_image() {
+								$('#resultdiv').toggle(500)
 								let video_url = document.getElementById("url_video");
 								urll = video_url.value;
 								if (urll.includes('youtube.com')) {
 									let finale = urll.slice(urll.indexOf('?v=')+3, urll.indexOf('.com')+24)
-									alert(finale)
+									$('.res-img').attr('src', '/yt?id=' + finale)
 								}
 								else if (urll.includes('youtu.be')) {
 									let finale = urll.slice(urll.indexOf('youtu.be')+9, urll.indexOf('youtu.be')+20)
-									alert(finale)
+									$('.res-img').attr('src', '/yt?id=' + finale)
 								}
-								/*
-								What is remaining:
-									Axios
-									Image loading display
-									Image show of wordcloud API
-								*/
 							}
 							let btn = document.getElementById("clickme");
 							btn.addEventListener('click', event => {
@@ -63,17 +84,27 @@
 					</div>
 					<div class="hr"></div>
 					<div class="foot-lnk">
-						<a href="https://freemedium.info/app/" target="_blank">Free Medium</a>
+						<a href="https://freemedium.info/app/" target="_blank">Free Medium</a> | <a href="https://github.com/AYoonesi/yt-cloud" target="_blank">Source Code</a>
 					</div>
 				</div>
 				<div class="sign-up-htm">
 					<div class="group">
 						<label for="user" class="label">Manifesto</label>
 						<p class="label">
-							I must admit that I am using a feature that Medium offers: Reading totally for free coming from Twitter. <br/><br/>
-							It means that if you see an article on Twitter, you could simply click on it and finished, it’s free now. The non-programmer mind would think “Let’s tweet it and use it!” <br/><br/>
-							But the programmer mind from the middle east would say “Let’s make it a service and put ads on it!” and I am middle-eastern and I built the service FreeMedium.info where the process is made automatic and possible for free. <br/><br/>
-							No ads so far and I post articles on it on regular basis, so it would make me more than happy if you check it out.
+							The idea is creating wordcloud for YouTube videos, and then Medium articles as well. I used word_cloud from PyPi, lots of thanks to <a target="_blank" href="https://github.com/amueller/word_cloud">amueller</a> for his job on this project.
+							<br/><br/> - - - - <br/><br/>
+							<a href="https://peekaboo-vision.blogspot.com/2012/11/a-wordcloud-in-python.html" target="_blank">From Andreas's Blog:</a> <br/>
+							I know, word clouds are a bit out of style but I kind of like them any way. My motivation to think about word clouds was that I thought these could be combined with topic-models to give somewhat more interesting visualizations.
+							
+							<br/><br/> - - - - <br/><br/>
+							Objectives to achieve, for now <br/>
+							Masks, Additional Stop Words <br/>
+							Medium and other platforms, like New York Times, etc.
+
+							<br/><br/>
+							<div class="centered blacked"><a href="https://www.linkedin.com/in/AYoonesi/" target="_blank">My Linked-In</a> | <a href="https://linstit.pw" target="_blank">My Blog</a></div>
+							</br>
+
 						</p>
 					</div>
 					<div hidden class="group">
@@ -97,7 +128,7 @@
 					</div>
 					<div class="hr"></div>
 					<div class="foot-lnk">
-						<a href="https://freemedium.info/app/" target="_blank">Free Medium</a>
+						<a href="https://freemedium.info/app/" target="_blank">Free Medium</a> | <a href="https://github.com/AYoonesi/yt-cloud" target="_blank">Source Code</a>
 					</div>
 				</div>
 			</div>
