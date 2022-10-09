@@ -1,3 +1,6 @@
+<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+<title>YouTube Word Cloud Generator</title>
+
 <style>
 
 
@@ -12,7 +15,7 @@
 
 
 </style>
-<form action="https://app.freemedium.info/hugo" method="get">
+<!--<form action="/yt" method="get">-->
 	<link href="{{ url_for('static', filename='css/forms.css') }}" rel="stylesheet" type="text/css" />   
 	<div class="login-wrap">
 		<div class="login-html">
@@ -25,14 +28,38 @@
 				<div class="sign-in-htm">
 					<div class="group">
 						<label for="user" class="label">URL of the Video *</label>
-						<input id="user" name="id" type="text" class="input">
+						<input id="url_video" name="id" type="text" class="input" >
 					</div>
 					<div class="group">
 						<label for="pass" class="label">link to the article</label>
-						<input id="wanted" name="wanted" type="text" class="input" data-type="" required>
+						<input id="wanted" name="wanted" type="text" class="input" data-type="" disabled>
 					</div>
 					<div class="group">
-						<input type="submit" class="button" value="get the article!">
+						<input id="clickme" type="submit" class="button" value="fetch the word cloud!">
+						<script>
+							function fetch_image() {
+								let video_url = document.getElementById("url_video");
+								urll = video_url.value;
+								if (urll.includes('youtube.com')) {
+									let finale = urll.slice(urll.indexOf('?v=')+3, urll.indexOf('.com')+24)
+									alert(finale)
+								}
+								else if (urll.includes('youtu.be')) {
+									let finale = urll.slice(urll.indexOf('youtu.be')+9, urll.indexOf('youtu.be')+20)
+									alert(finale)
+								}
+								/*
+								What is remaining:
+									Axios
+									Image loading display
+									Image show of wordcloud API
+								*/
+							}
+							let btn = document.getElementById("clickme");
+							btn.addEventListener('click', event => {
+								fetch_image();
+							});
+						</script>
 					</div>
 					<div class="hr"></div>
 					<div class="foot-lnk">
@@ -76,4 +103,4 @@
 			</div>
 		</div>
 	</div>
-</form>
+<!--</form>-->
