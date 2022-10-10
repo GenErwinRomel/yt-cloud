@@ -1,5 +1,5 @@
 import youtube_dl
-import re, os
+import os
 bad_words = ['-->','</c>'] 
 
 video_id = '0YP4n9G0qtQ'

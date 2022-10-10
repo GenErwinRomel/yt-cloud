@@ -1,10 +1,6 @@
-import pandas as pd
-import matplotlib.pyplot as plt
 from wordcloud import WordCloud, STOPWORDS
 from PIL import Image
 import numpy as np
-import base64
-
 
 def gen_wc(video_id: str, mask_name: str = 'none', stopwords: str = ''):
     with open(f'tmp/{video_id}/{video_id}.txt') as seed:
