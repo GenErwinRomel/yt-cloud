@@ -8,8 +8,8 @@ I used word_cloud from PyPi, lots of thanks to [amueller](https://github.com/amu
 + [X] Flask App:
     + [X] Route /yt for Optional Video
     + [X] Additional Mask
+    + [X] Additional STOPWORD
     + [ ] Optional Mask
-    + [ ] Additional STOPWORD Add
     + [ ] Delete Tmp Files
 + [ ] PyPi Repo
 + [ ] Medium Version

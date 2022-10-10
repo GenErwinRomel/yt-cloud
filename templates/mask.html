@@ -40,6 +40,17 @@
 		color: black;
 	}
 
+	.txt-area {
+		resize: none;
+		max-height: 420px;
+		min-height: 200px;
+	}
+
+	#reloadthis {
+		margin: 25 0;
+		font-weight: bold;
+	}
+
 </style>
 <!--<form action="/yt" method="get">-->
 	<script src="{{ url_for('static', filename='js/jquery-3.6.1.min.js') }}"></script>
@@ -53,48 +64,49 @@
 			<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">How it works?</label>
 			<div class="login-form">
 				<div class="sign-in-htm">
-					<div class="group">
-						<label for="user" class="label">URL of the Video *</label>
-						<input id="url_video" name="id" type="text" class="input" placeholder="https://www.youtube.com/watch?v=Rls8H6MktrA" >
-					</div>
-					<div hidden class="group">
-						<label for="pass" class="label">Mask (In Progress)</label>
-						<input id="mask" name="wanted" type="text" class="input" data-type="" disabled>
-					</div>
-					<div class="group">
-						<label for="pass" class="label">Masks available</label>
-						<select class="input" name="cars" id="selected-mask">
-							{% for item in masks %}
-								<option class="opt" value="volvo">{{ item }}</option>
-							{% endfor %}
-						  </select>
-						<div hidden>
-							<input id="mask" name="wanted" type="text" class="input" data-type="" disabled>
+					<div id='formm'>
+						<div class="group">
+							<label for="user" class="label">URL of the Video *</label>
+							<input id="url_video" name="id" type="text" class="input" value="https://www.youtube.com/watch?v=Rls8H6MktrA" >
+						</div>
+						<div class="group">
+							<label for="pass" class="label">Additional Stopwords</label>
+							<textarea class="input txt-area" id="stopwords" rows="3"></textarea>
+						</div>
+						<div class="group">
+							<label for="pass" class="label">Masks</label>
+							<select class="input" name="cars" id="selected-mask">
+								{% for item in masks %}
+									<option class="opt" value="">{{ item }}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="group">
+							<input id="clickme" type="submit" class="button" value="fetch the word cloud!">
 						</div>
 					</div>
 					<div class="group">
-						<input id="clickme" type="submit" class="button" value="fetch the word cloud!">
 						<div class="res-div" style='display: none' id='resultdiv'>
-							<img class="res-img" src="{{ url_for('static', filename='img/loading.gif') }}" />
+							<img class="res-img" src="{{ url_for('static', filename='img/loading.gif') }}" /> <br/>
+							<input id="reloadthis" type="submit" class="button" value="Reload">
 						</div>
-						<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 						<script>
-							//const axios = require('axios').default;
 							function fetch_image() {
+								$('#formm').toggle(500);
 								let selected_mask = $('#selected-mask').find(":selected").text().toLowerCase();
 								let video_url = document.getElementById("url_video");
 								urll = video_url.value;
+								let swords = $('#stopwords').val().split('\n');
+								// alert(swords);
 								if (urll.includes('youtube.com')) {
-									$('#resultdiv').fadeIn(500)
-									$('#resultdiv').attr('src', "{{ url_for('static', filename='img/loading.gif') }}")
-									let finale = urll.slice(urll.indexOf('?v=')+3, urll.indexOf('.com')+24)
+									$('#resultdiv').toggle(500);
+									let finale = urll.slice(urll.indexOf('?v=')+3, urll.indexOf('.com')+24);
 									// https://www.youtube.com/watch?v=XoQD4HnOMlA
-									$('.res-img').attr('src', '/yt?id=' + finale + '&mask=' + selected_mask)
+									$('.res-img').attr('src', '/yt?id=' + finale + '&mask=' + selected_mask + '&stopwords=' + swords);
 								} else if (urll.includes('youtu.be')) {
-									$('#resultdiv').attr('src', "{{ url_for('static', filename='img/loading.gif') }}")
-									$('#resultdiv').fadeIn(500)
+									$('#resultdiv').toggle(500);
 									let finale = urll.slice(urll.indexOf('youtu.be')+9, urll.indexOf('youtu.be')+20)
-									$('.res-img').attr('src', '/yt?id=' + finale + '&mask=' + selected_mask)
+									$('.res-img').attr('src', '/yt?id=' + finale + '&mask=' + selected_mask + '&stopwords=' + swords)
 								} else {
 									$('#resultdiv').fadeIn(500)
 									$('.res-img').attr('src', "{{ url_for('static', filename='img/error.gif') }}")
@@ -104,6 +116,10 @@
 							let btn = document.getElementById("clickme");
 							btn.addEventListener('click', event => {
 								fetch_image();
+							});
+
+							$('#reloadthis').click(function() {
+								location.reload();
 							});
 						</script>
 					</div>
@@ -131,25 +147,6 @@
 							</br>
 
 						</p>
-					</div>
-					<div hidden class="group">
-						<label for="user" class="label">Username</label>
-						<input id="user" type="text" class="input">
-					</div>
-					<div hidden class="group">
-						<label for="pass" class="label">Password</label>
-						<input id="pass" type="password" class="input" data-type="password">
-					</div>
-					<div hidden class="group">
-						<label for="pass" class="label">Repeat Password</label>
-						<input id="pass" type="password" class="input" data-type="password">
-					</div>
-					<div hidden class="group">
-						<label for="pass" class="label">Email Address</label>
-						<input id="pass" type="text" class="input">
-					</div>
-					<div hidden class="group">
-						<input type="submit" class="button" value="Sign Up">
 					</div>
 					<div class="hr"></div>
 					<div class="foot-lnk">
