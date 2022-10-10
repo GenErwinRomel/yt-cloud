@@ -19,6 +19,7 @@
 		padding: 1rem;
 		background: linear-gradient(to right, red, purple);
 		padding: 5px;
+		max-height: 400;
 	}
 
 	.res-div {
@@ -33,6 +34,10 @@
 		/* color: black; */
 		text-decoration: underline;
 		color: white;
+	}
+
+	.opt {
+		color: black;
 	}
 
 </style>
@@ -57,23 +62,43 @@
 						<input id="mask" name="wanted" type="text" class="input" data-type="" disabled>
 					</div>
 					<div class="group">
+						<label for="pass" class="label">Masks available</label>
+						<select class="input" name="cars" id="selected-mask">
+							{% for item in masks %}
+								<option class="opt" value="volvo">{{ item }}</option>
+							{% endfor %}
+						  </select>
+						<div hidden>
+							<input id="mask" name="wanted" type="text" class="input" data-type="" disabled>
+						</div>
+					</div>
+					<div class="group">
 						<input id="clickme" type="submit" class="button" value="fetch the word cloud!">
 						<div class="res-div" style='display: none' id='resultdiv'>
 							<img class="res-img" src="{{ url_for('static', filename='img/loading.gif') }}" />
 						</div>
+						<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 						<script>
 							//const axios = require('axios').default;
 							function fetch_image() {
-								$('#resultdiv').toggle(500)
+								let selected_mask = $('#selected-mask').find(":selected").text().toLowerCase();
 								let video_url = document.getElementById("url_video");
 								urll = video_url.value;
 								if (urll.includes('youtube.com')) {
+									$('#resultdiv').fadeIn(500)
+									$('#resultdiv').attr('src', "{{ url_for('static', filename='img/loading.gif') }}")
 									let finale = urll.slice(urll.indexOf('?v=')+3, urll.indexOf('.com')+24)
-									$('.res-img').attr('src', '/yt?id=' + finale)
-								}
-								else if (urll.includes('youtu.be')) {
+									// https://www.youtube.com/watch?v=XoQD4HnOMlA
+									$('.res-img').attr('src', '/yt?id=' + finale + '&mask=' + selected_mask)
+								} else if (urll.includes('youtu.be')) {
+									$('#resultdiv').attr('src', "{{ url_for('static', filename='img/loading.gif') }}")
+									$('#resultdiv').fadeIn(500)
 									let finale = urll.slice(urll.indexOf('youtu.be')+9, urll.indexOf('youtu.be')+20)
-									$('.res-img').attr('src', '/yt?id=' + finale)
+									$('.res-img').attr('src', '/yt?id=' + finale + '&mask=' + selected_mask)
+								} else {
+									$('#resultdiv').fadeIn(500)
+									$('.res-img').attr('src', "{{ url_for('static', filename='img/error.gif') }}")
+									alert('Reload the page and enter descent url')
 								}
 							}
 							let btn = document.getElementById("clickme");
@@ -99,8 +124,8 @@
 							<br/><br/> - - - - <br/><br/>
 							Objectives to achieve, for now <br/>
 							Masks, Additional Stop Words <br/>
-							Medium and other platforms, like New York Times, etc.
-
+							Medium and other platforms, like New York Times, etc.<br/>
+							Currently Available Masks: {{ masks }}
 							<br/><br/>
 							<div class="centered blacked"><a href="https://www.linkedin.com/in/AYoonesi/" target="_blank">My Linked-In</a> | <a href="https://linstit.pw" target="_blank">My Blog</a></div>
 							</br>

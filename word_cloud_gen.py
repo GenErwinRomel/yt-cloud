@@ -6,7 +6,7 @@ import numpy as np
 import base64
 
 
-def gen_wc(video_id: str):
+def gen_wc(video_id: str, mask_name: str = 'none'):
     with open(f'tmp/{video_id}/{video_id}.txt') as seed:
         lines = seed.readlines()
     seed = "".join(lines).replace('\n', ' ')
@@ -19,7 +19,7 @@ def gen_wc(video_id: str):
         max_words=80,
         normalize_plurals=True,
         stopwords=STOPWORDS,
-        # mask=np.array(Image.open('masks/heart.jpg'))
+        mask=np.array(Image.open(f'masks/{mask_name}.jpg'))
     ).generate(seed)
     res = word_cloud.to_file(f'tmp/{video_id}/wc.png')
 

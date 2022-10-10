@@ -133,3 +133,4 @@ dmypy.json
 *.vtt
 # masks
 tmp
+npm_modules
