@@ -37,5 +37,4 @@ def home_page_test():
         return send_file(gen_wc(video_id=vid), mimetype='image/png')
     
 if __name__ == '__main__':
-    # app.run(port=8000)
-    app.run(port=5001, debug=True)
+    app.run(port=8000)
